@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">UTSLecture</string>
+    <string name="login">Sign In</string>
+    <string name="email_input_message">Email</string>
+    <string name="password_input_message">Password</string>
+    <string name="register">Register</string>
+    <string name="register_button">Register</string>
+    <string name="submit_button">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register_text"><u>Register Now</u></string>
+    <string name="account">Don’t have an account?</string>
+    <string name="repeat_password_input_message">Ulangi Password</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

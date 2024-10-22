@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1032758132187",
+    "project_id": "utslecture",
+    "storage_bucket": "utslecture.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032758132187:android:e9bdd92387aca79d587bfe",
+        "android_client_info": {
+          "package_name": "com.example.utslecture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5FPPORhsz_GmhuYW5CbCKmm5WFfsy-1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
