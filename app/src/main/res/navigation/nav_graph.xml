@@ -10,6 +10,25 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
+        android:id="@+id/Search"
+        android:name="com.example.utslecture.Search"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/Profile"
+        android:name="com.example.utslecture.Profile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_Profile_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/Bookmark"
+        android:name="com.example.utslecture.Bookmark"
+        android:label="Bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.utslecture.Login"
         android:label="fragment_login"
@@ -22,8 +41,18 @@
             app:destination="@id/Home" />
     </fragment>
     <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.utslecture.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.utslecture.Register"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/editProfilePictureFragment"
+        android:name="com.example.utslecture.EditProfilePicture"
+        android:label="fragment_edit_profile_picture"
+        tools:layout="@layout/fragment_edit_profile_picture" />
 </navigation>

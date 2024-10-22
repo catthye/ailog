@@ -1,5 +1,6 @@
 package com.example.utslecture
 
+import ProfileUser
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,18 +12,23 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Register : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).hideBottomNavigation()
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
@@ -30,8 +36,7 @@ class Register : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val emailInput = view.findViewById<EditText>(R.id.email_input_field)
         val passwordInput = view.findViewById<EditText>(R.id.password_input_field)
-        val repeatPasswordInput = view.findViewById<EditText>(R.id.repeat_password_input_field) // Ambil input password ulang
-        auth = FirebaseAuth.getInstance()
+        val repeatPasswordInput = view.findViewById<EditText>(R.id.repeat_password_input_field)
 
         val loginButton = view.findViewById<Button>(R.id.submit_button)
         loginButton.setOnClickListener {
@@ -40,8 +45,7 @@ class Register : Fragment() {
             val repeatPassword = repeatPasswordInput.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Email and Password are required",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Email and Password are required", Toast.LENGTH_SHORT).show()
             } else if (password != repeatPassword) {
                 Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
             } else {
@@ -51,6 +55,8 @@ class Register : Fragment() {
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
                             Log.d("Register", "RegisterWithEmail:success")
+                            val userId = auth.currentUser?.uid
+                            createUserProfile(userId, email) // Call function to create user profile
                             findNavController().navigate(R.id.loginFragment)
                         } else {
                             Log.w("Register", "RegisterWithEmail:failure", task.exception)
@@ -58,6 +64,28 @@ class Register : Fragment() {
                         }
                     }
             }
+        }
+    }
+
+    private fun createUserProfile(userId: String?, email: String) {
+        if (userId != null) {
+            val userProfile = ProfileUser(
+                userId = userId,
+                email = email,
+                name = "",
+                username = "",
+                phoneNumber = "",
+                bio = ""
+            )
+            firestore.collection("users") // Collection name
+                .document(userId) // Document ID
+                .set(userProfile)
+                .addOnSuccessListener {
+                    Log.d("Firestore", "User profile created successfully")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Firestore", "Error adding document", e)
+                }
         }
     }
 }
